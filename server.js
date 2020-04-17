@@ -26,6 +26,8 @@ app.use(session({
 app.use(express.static("static"));
 app.use(bodyParser.urlencoded({ extended: true}));
 app.set("view engine", "ejs");
+app.post("/signout", signout);
+app.post("/addproduct", addproduct);
 
 const url = process.env.DB_HOST + ":" + process.env.DB_PORT;
 
@@ -70,6 +72,17 @@ function login(req, res) {
 	});
 };
 
+function signout(req, res) {
+	req.session.destroy((err) => {
+		if (err) {
+			console.log("Could not destroy");
+		} else {
+			console.log("user signed out");
+			res.redirect("/");
+		}
+	})
+};
+
 app.get("/", (req, res) => {
 	if (!req.session.user) {
 		res.redirect("/login");
@@ -87,5 +100,22 @@ app.get("/", (req, res) => {
 		});
 	}
 });
+
+function addproduct(req, res) {
+	db.collection("POSUsers").updateOne({username: req.session.user.username}, { $addToSet: {products: {
+		name: req.body.name,
+		stockAvailable: req.body.stock,
+		itemsSold: req.body.sold,
+		buyingPrice: req.body.buyingPrice,
+		sellingPrice: req.body.sellingPrice
+	}}}, (err, data) => {
+		if (err) {
+			console.log("Could not add product");
+		} else {
+			console.log("added product");
+			res.redirect("/");
+		}
+	});
+}
 
 app.listen(process.env.PORT || 7000, () => console.log("Server is running..."));
