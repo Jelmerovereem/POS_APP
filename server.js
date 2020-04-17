@@ -28,6 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.set("view engine", "ejs");
 app.post("/signout", signout);
 app.post("/addproduct", addproduct);
+app.post("/removeproduct", removeproduct);
 
 const url = process.env.DB_HOST + ":" + process.env.DB_PORT;
 
@@ -116,6 +117,23 @@ function addproduct(req, res) {
 			res.redirect("/");
 		}
 	});
+};
+
+function removeproduct(req, res) {
+	let selectedProduct = req.body.name;
+
+	if (!req.session.user) {
+		res.redirect("/login");
+	} else {
+		db.collection("POSUsers").updateOne({username: req.session.user.username}, {$pull: {products: {name: selectedProduct}}}, (err) => {
+			if (err) {
+				console.log("Could not remove product");
+			} else {
+				console.log("removed product");
+			}
+		});
+		res.redirect("/");
+	}
 }
 
 app.listen(process.env.PORT || 7000, () => console.log("Server is running..."));

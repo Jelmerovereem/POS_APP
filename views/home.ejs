@@ -1,40 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<title>Home</title>
-	<link rel="stylesheet" href="styles/style.css">
-</head>
-<%- include("partials/head") %>
-<body>
+	<head>
+		<title>Home</title>
+		<link rel="stylesheet" href="styles/style.css">
+	</head>
+	<%- include("partials/head") %>
+	<body>
 		<%- include("partials/nav") %>
-	<h1>Point of sale - Minishop</h1>
-	<p>Welcome <%= data.username %>!</p>
-
-	<p>Your products:</p>
-
-	<form action="/addproduct" method="POST" class="addProductForm">
-		<label for="">name</label>
-		<input type="text" name="name" required>
-		<label for="">stock</label>
-		<input type="number" name="stock">
-		<label for="">itemsSold</label>
-		<input type="number" name="sold">
-		<label for="">buyingPrice</label>
-		<input type="number" name="buyingPrice">
-		<label for="">sellingPrice</label>
-		<input type="number" name="sellingPrice">
-		<button type="submit">Add product</button>
-	</form>
-
+		<h1>Point of sale - Minishop</h1>
+		<p>Welcome <%= data.username %>!</p>
+		<p>Your products:</p>
+		<form action="/addproduct" method="POST" class="addProductForm">
+			<label for="">name</label>
+			<input type="text" name="name" required>
+			<label for="">stock</label>
+			<input type="number" name="stock">
+			<label for="">itemsSold</label>
+			<input type="number" name="sold">
+			<label for="">buyingPrice</label>
+			<input type="number" name="buyingPrice">
+			<label for="">sellingPrice</label>
+			<input type="number" name="sellingPrice">
+			<button type="submit">Add product</button>
+		</form>
 		<% data.products.forEach(function(data) { %>
-			<div class="productContainer">
-				<p class="productName">Name: <%= data.name %></p>
-				<p>Stock: <%= data.stockAvailable %></p>
-				<p>itemsSold: <%= data.itemsSold %></p>
-				<p>buyingPrice: <%= data.buyingPrice %></p>
-				<p>sellingPrice: <%= data.sellingPrice %></p>
-				<p>profit: <%= (data.sellingPrice * data.itemsSold) - ( data.buyingPrice * (data.stockAvailable + data.itemsSold)) %></p>
+		<div class="productContainer">
+			<p class="productName">Name: <%= data.name %></p>
+			<p>Stock: <%= data.stockAvailable %></p>
+			<p>itemsSold: <%= data.itemsSold %></p>
+			<p>buyingPrice: <%= data.buyingPrice %></p>
+			<p>sellingPrice: <%= data.sellingPrice %></p>
+			<p>profit: <%= (data.sellingPrice * data.itemsSold) - ( data.buyingPrice * (data.stockAvailable + data.itemsSold)) %></p>
+			<a href="javascript:void(0)" class="deleteProductBtn">Delete product</a>
+			<div class="removeForm modal" id="removeFormID">
+				<div class="modalContent">
+					<p>Are you sure you want to delete <%= data.name %>?</p>
+					<form action="/removeproduct" method="POST">
+						<input type="hidden" name="name" value="<%= data.name %>">
+						<button type="submit">Delete</button>
+						<a href="javascript:void(0)" id="cancelBtn">Cancel</a>
+					</form>
+				</div>
 			</div>
-	<%	}); %>
-</body>
+		</div>
+		<%	}); %>
+		<script src="scripts/script.js"></script>
+	</body>
 </html>
