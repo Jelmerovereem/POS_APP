@@ -23,8 +23,6 @@ app.use(session({
   saveUninitialized: true
 }));
 
-const PORT = 7000;
-
 app.use(express.static("static"));
 app.use(bodyParser.urlencoded({ extended: true}));
 app.set("view engine", "ejs");
@@ -90,4 +88,4 @@ app.get("/", (req, res) => {
 	}
 });
 
-app.listen(7000, () => console.log("Server is running..."));
+app.listen(() => console.log("Server is running..."));
