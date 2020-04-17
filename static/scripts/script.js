@@ -16,3 +16,21 @@ for (var i = 0; i < deleteBtns.length; i++) {
 	parentDiv.children.namedItem("removeFormID").children[0].children[1].children.namedItem("cancelBtn").addEventListener("click", closeModal);	
 }
 }
+
+let addProductBtn = document.querySelector(".addProductBtn");
+let addProductForm = document.querySelector(".addProductForm");
+
+function showAddForm() {
+	addProductForm.classList.add("showForm");
+}
+
+addProductBtn.addEventListener("click", showAddForm);
+
+
+let cancelAddBtn = document.querySelector(".cancelAddBtn");
+
+function hideAddForm() {
+	addProductForm.classList.remove("showForm");
+}
+
+cancelAddBtn.addEventListener("click", hideAddForm);

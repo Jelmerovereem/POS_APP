@@ -26,6 +26,10 @@ input {
 	font-size: 24px;
 }
 
+.addProductForm {
+	display: none;
+}
+
 .removeForm {
 	display: none;
 	position: fixed;
