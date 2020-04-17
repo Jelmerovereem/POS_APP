@@ -26,6 +26,7 @@ app.use(session({
 app.use(express.static("static"));
 app.use(bodyParser.urlencoded({ extended: true}));
 app.set("view engine", "ejs");
+app.get("/register", (req, res) => {res.render("register.ejs")})
 app.post("/signout", signout);
 app.post("/addproduct", addproduct);
 app.post("/removeproduct", removeproduct);
