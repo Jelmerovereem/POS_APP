@@ -30,6 +30,7 @@ app.get("/register", (req, res) => {res.render("register.ejs")})
 app.post("/signout", signout);
 app.post("/addproduct", addproduct);
 app.post("/removeproduct", removeproduct);
+app.post("/register", register);
 
 const url = process.env.DB_HOST + ":" + process.env.DB_PORT;
 
@@ -48,6 +49,27 @@ app.get("/login", (req, res) => {
 });
 
 app.post("/login", login);
+
+function register(req, res) {
+	db.collection("POSUsers").insertOne({
+		username: req.body.username,
+		password: req.body.password,
+		products: [{
+			name: "Apple",
+			stockAvailable: 5,
+			itemsSold: 15,
+			buyingPrice: 1,
+			sellingPrice: 5
+		}]
+	}, (err) => {
+		if (err) {
+			console.log("could not sign up user");
+		} else {
+			console.log("created user")
+		}
+	});
+	res.redirect("/login");
+};
 
 function login(req, res) {
 		let users = db.collection("POSUsers").findOne({username: req.body.username}, (err, data) => {
