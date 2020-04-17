@@ -21,7 +21,7 @@ let addProductBtn = document.querySelector(".addProductBtn");
 let addProductForm = document.querySelector(".addProductForm");
 
 function showAddForm() {
-	addProductForm.classList.add("showForm");
+	addProductForm.classList.toggle("showForm");
 }
 
 addProductBtn.addEventListener("click", showAddForm);
