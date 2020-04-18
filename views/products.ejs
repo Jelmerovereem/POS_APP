@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>POS - Your products</title>
+	<link rel="stylesheet" href="styles/style.css">
+</head>
+<%- include("partials/head") %>
+<body>
+	<%- include("partials/nav") %>
+	<main>
+		<h1>Products</h1>
+		<a href="javascript:void(0)" class="addProductBtn">Add product</a>
+		<div class="addProductModal">
+		<form action="/addproduct" method="POST" class="addProductForm modalFormContent">
+			<label for="">Product Name</label>
+			<input type="text" name="productName" required>
+<!-- 			<label for="">Picture</label>
+<input type="file"> -->
+			<label for="">Stock available</label>
+			<input type="number" name="stock" placeholder="0">
+<!-- 			<label for="">itemsSold</label>
+<input type="number" name="sold"> -->
+			<label for="">Buying Price</label>
+			<input type="number" name="buyingPrice" step="0.01" placeholder="0.00">
+			<label for="">Selling Price</label>
+			<input type="number" name="sellingPrice" placeholder="0.00" step="0.01">
+			<label for="">SKU (Stock Keeping Unit) / Product code</label>
+			<input type="text" name="sku">
+			<button type="submit" class="addBtn">Add product</button>
+			<a href="javascript:void(0)" class="cancelAddBtn">Cancel</a>
+		</form>
+		</div>
+		<% data.products.forEach(function(data) { %>
+		<div class="productContainer">
+			<input class="inputProduct productName" type="text" value="<%= data.name %>" name="productName" disabled>
+			<label for="">Stock available</label>
+			<input type="number" value="<%= data.stockAvailable %>" step="0.01" name="stock" disabled>
+			<label for="">Items sold today</label>
+			<input type="number" value="<%= data.itemsSold %>" step="0.01" name="sold" disabled>
+			<label for="">Buying price</label>
+			<input type="number" value="<%= data.buyingPrice %>" step="0.01" name="buyingPrice" disabled>
+			<label for="">Selling price</label>
+			<input type="number" value="<%= data.sellingPrice %>" step="0.01" name="sellingPrice" disabled>
+			<label for="">Profit</label>
+			<p><%= (data.sellingPrice * data.itemsSold) - ( data.buyingPrice * (data.stockAvailable + data.itemsSold)) %></p>
+			<label for="">SKU</label>
+			<input type="text" value="<%= data.SKU %>" name="sku" disabled>
+			<a href="javascript:void(0)" class="cancelEditBtn">Cancel</a>
+			<button type="submit" class="saveEditBtn">Save</button>
+			<a href="javascript:void(0)" class="editProductBtn">Edit product</a>
+			<a href="javascript:void(0)" class="deleteProductBtn">Delete product</a>
+			<div class="removeForm modal" id="removeFormID">
+				<div class="modalContent">
+					<p>Are you sure you want to delete <%= data.name %>?</p>
+					<form action="/removeproduct" method="POST">
+						<input type="hidden" name="name" value="<%= data.name %>">
+						<button type="submit">Delete</button>
+						<a href="javascript:void(0)" id="cancelBtn">Cancel</a>
+					</form>
+				</div>
+			</div>
+		</div>
+		<%	}); %>
+		</main>
+		<script src="scripts/script.js"></script>
+</body>
+</html>

@@ -12,6 +12,22 @@ const urlencodedParser = bodyParser.urlencoded({
   extended: true
 });
 
+const file = require("file-system");
+const fs = require("fs");
+
+file.readFile === fs.readFile;
+
+const multer = require("multer");
+
+let fileFilter = (req, file, cb) => {
+	if (
+		file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/jpeg"
+		) {
+		cb(null, true)
+	} else {
+		cb(new Error("File format should be PNG,JPG,JPEG"), false);
+	}
+};
 
 const app = express();
 
@@ -114,9 +130,7 @@ app.get("/", (req, res) => {
 		db.collection("POSUsers").findOne({username: req.session.user.username}, (err, data) => {
 			if (err) {
 				console.log("couldnt found user");
-			} else {
-				console.log("found user");
-			};
+			}
 
 			res.render("home.ejs", {
 				data: data
@@ -125,19 +139,36 @@ app.get("/", (req, res) => {
 	}
 });
 
+app.get("/products", (req, res) => {
+	if (!req.session.user) {
+		res.redirect("/login");
+	} else {
+		db.collection("POSUsers").findOne({username: req.session.user.username}, (err, data) => {
+			if (err) {
+				console.log("couldnt found user");
+			}
+
+			res.render("products.ejs", {
+				data: data
+			})
+		})
+	}
+})
+
 function addproduct(req, res) {
 	db.collection("POSUsers").updateOne({username: req.session.user.username}, { $addToSet: {products: {
-		name: req.body.name,
+		name: req.body.productName,
 		stockAvailable: req.body.stock,
 		itemsSold: req.body.sold,
 		buyingPrice: req.body.buyingPrice,
-		sellingPrice: req.body.sellingPrice
+		sellingPrice: req.body.sellingPrice,
+		SKU: req.body.sku
 	}}}, (err, data) => {
 		if (err) {
 			console.log("Could not add product");
 		} else {
 			console.log("added product");
-			res.redirect("/");
+			res.redirect("/products");
 		}
 	});
 };
@@ -155,7 +186,7 @@ function removeproduct(req, res) {
 				console.log("removed product");
 			}
 		});
-		res.redirect("/");
+		res.redirect("/products");
 	}
 }
 
