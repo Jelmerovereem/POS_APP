@@ -1,0 +1,108 @@
+body {
+	background-image: linear-gradient(270deg, #fc4949, #7dbdf5, #cd7df5);
+	background-repeat: no-repeat;
+	background-size: 400% 400%;
+	height: 100vh;
+	overflow: hidden;
+	color: white;
+	animation: changeBackground 20s ease infinite;
+}
+
+@keyframes changeBackground {
+	0% {
+		background-position: 0% 50%;
+	}
+	
+	50% {
+		background-position: 100% 50%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+form {
+	display: inline-block;
+	text-align: left;
+}
+
+.container {
+	display: flex;
+	text-align: center;
+	width: 18%;
+	margin: auto;
+	margin-top: 200px;
+	padding: 50px 150px 50px 70px;
+	background-color: #1f1f1f2b;
+	border-radius: 10px;
+}
+
+.container>div:first-child {
+	border-right: 1px solid white;
+	margin-right: 20px;
+	padding-right: 20px;
+	text-align: left;
+}
+
+a {
+	color: white;
+}
+
+label {
+	margin-bottom: 10px;
+}
+
+input  {
+	background: none;
+	border: none;
+	border-bottom: 1px solid white;
+	color: white;
+	margin-bottom: 30px;
+}
+
+button {
+	background: none;
+	border: 1px solid white;
+	color: white;
+	padding: 10px 20px;
+	border-radius: 10px;
+	transition: box-shadow 0.5s;
+}
+
+button:hover {
+	cursor: pointer;
+	box-shadow: 1px 1px 3px #383838;
+}
+
+
+/* .formContainer {
+	text-align: center; 
+} */
+
+@media screen and (max-width: 600px) {
+	body {
+		overflow: auto;
+	}
+	.container {
+		margin-top: 20px;
+		text-align: left;
+		display: block;
+		width: 80%;
+		padding: 10px;
+	}
+
+	.container>div:first-child {
+		border: none;
+		margin-right: 0;
+		padding-right: 0;
+		border-bottom: 1px solid white;
+		margin-bottom: 30px;
+	}
+
+	form {
+		border-bottom: 1px solid white;
+		padding-bottom: 20px;
+		width: 100%;
+	}
+}

@@ -4,17 +4,25 @@
 	<meta charset="UTF-8">
 	<title>Sign up</title>
 	<link rel="stylesheet" href="styles/style.css">
+	<link rel="stylesheet" href="styles/login_signup.css">
 </head>
 <%- include("partials/head") %>
 <body>
-	<h1>Sign up</h1>
+	<div class="container">
+	<div>
+		<h1>Sign up</h1>
+		<p>Sign up here!</p>
+	</div>
+	<div class="formContainer">
 	<form action="/register" method="POST">
-		<label for="">Name</label>
+		<label for="">Username</label>
 		<input type="text" name="username">
-		<label for="">password</label>
+		<label for="">Password</label>
 		<input type="password" name="password">
 		<button type="submit">Sign up</button>
 	</form>
-	<a href="/login">Login</a>
+	<p>Already have an account?<a href="/login">Login</a></p>
+	</div>
+	</div>
 </body>
 </html>
