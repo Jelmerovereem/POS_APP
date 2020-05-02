@@ -47,6 +47,7 @@ app.post("/signout", signout);
 app.post("/addproduct", addproduct);
 app.post("/removeproduct", removeproduct);
 app.post("/register", register);
+app.post("/editproduct", editproduct);
 
 const url = process.env.DB_HOST + ":" + process.env.DB_PORT;
 
@@ -190,4 +191,23 @@ function removeproduct(req, res) {
 	}
 }
 
-app.listen(process.env.PORT || 7000, () => console.log("Server is running..."));
+function editproduct(req, res) {
+	let selectedProduct = req.body.name;
+
+	if (!req.session.user) {
+		res.redirect("/login");
+	} else {
+		db.collection("POSUsers").updateOne({ $and: {username: req.session.user.username}, products: [{name: req.body.name}]}, { $set: {
+			name: req.body.productName,
+			stockAvailable: req.body.stock,
+			itemsSold: req.body.sold,
+			buyingPrice: req.body.buyingPrice,
+			sellingPrice: req.body.sellingPrice,
+			SKU: req.body.sku
+		}});
+		//console.log(db.collection("POSUsers").findOne({username: req.session.userproducts: [{name: req.body.name}]}));
+		res.redirect("/products");
+	}
+}
+
+app.listen(process.env.PORT || 7000, () => console.log("Server is running... on port 7000 or Heroku_port"));

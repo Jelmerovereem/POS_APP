@@ -32,6 +32,7 @@
 		</div>
 		<% data.products.forEach(function(data) { %>
 		<div class="productContainer">
+			<form action="/editproduct" method="POST">
 			<input class="inputProduct productName" type="text" value="<%= data.name %>" name="productName" disabled>
 			<label for="">Stock available</label>
 			<input type="number" value="<%= data.stockAvailable %>" step="0.01" name="stock" disabled>
@@ -47,6 +48,7 @@
 			<input type="text" value="<%= data.SKU %>" name="sku" disabled>
 			<a href="javascript:void(0)" class="cancelEditBtn">Cancel</a>
 			<button type="submit" class="saveEditBtn">Save</button>
+		</form>
 			<a href="javascript:void(0)" class="editProductBtn">Edit product</a>
 			<a href="javascript:void(0)" class="deleteProductBtn">Delete product</a>
 			<div class="removeForm modal" id="removeFormID">
