@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Cash Register</title>
+	<link rel="stylesheet" href="styles/style.css">
+</head>
+<%- include("partials/head") %>
+<body>
+	<%- include("partials/nav") %>
+	<main>
+		<h1>Cash Register</h1>
+		<div class="registerProducts">
+			<% data.products.forEach(function(data) { %>
+			<div class="registerProduct">
+				<p class="productTitle"><%= data.name %></p>
+				<p class="productStock">In stock: <%= data.stockAvailable %></p>
+				<p class="productPrice">$<%= data.sellingPrice %></p>
+				<a href="javascript:void(0)">Add to list</a>
+			</div>
+			<% }); %>
+		</div>
+		<div class="registerList"></div>
+	</main>
+	<script src="scripts/scriptHome.js"></script>
+	<script src="scripts/script.js"></script>
+</body>
+</html>

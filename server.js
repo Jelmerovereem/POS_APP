@@ -76,7 +76,8 @@ function register(req, res) {
 			stockAvailable: 5,
 			itemsSold: 15,
 			buyingPrice: 1,
-			sellingPrice: 5
+			sellingPrice: 5,
+			SKU: 1.00
 		}]
 	}, (err) => {
 		if (err) {
@@ -155,6 +156,21 @@ app.get("/products", (req, res) => {
 		})
 	}
 })
+
+app.get("/cashRegister", (req, res) => {
+	if (!req.session.user) {
+		res.redirect("/login");
+	} else {
+		db.collection("POSUsers").findOne({username: req.session.user.username}, (err, data) => {
+			if (err) {
+				console.log("couldnt find user");
+			}
+			res.render("cashRegister.ejs", {
+				data:data
+			})
+		})
+	}
+});
 
 function addproduct(req, res) {
 	db.collection("POSUsers").updateOne({username: req.session.user.username}, { $addToSet: {products: {

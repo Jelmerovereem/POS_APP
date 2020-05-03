@@ -84,6 +84,10 @@ darkModeBtn.addEventListener("click", () => {
 	for (var f = 0; f < inputs.length; f++) {
 		inputs[f].classList.toggle("inputs-darkTheme");
 	}
+	let anchorTags = document.querySelectorAll("a");
+	for (var i = 0; i < anchorTags.length; i++) {
+		anchorTags[i].classList.toggle("inputs-darkTheme");
+	}
 })
 
 document.querySelector(".navTitle").addEventListener("click", () => {location.href = "/"; console.log("clicked")});

@@ -229,6 +229,21 @@ input[disabled] {
 	color: #e6e6e6 !important;
 }
 
+.anchor-darkTheme {
+	color: #aa04b0;
+}
+
+.registerProducts {
+	display: grid;
+	grid-template-columns: repeat(10, 1fr);
+	grid-gap: 20px;
+}
+
+.registerProduct {
+	border: 2px solid black;
+	padding: 10px;
+}
+
 @media screen and (max-width: 1024px) {
 	main {
 		margin-left: 10px;
@@ -300,5 +315,9 @@ input[disabled] {
 
 	.addProductBtn {
 		margin-right: 10px;
+	}
+
+	.registerProducts {
+		grid-template-columns: repeat(2, 1fr);
 	}
 }
