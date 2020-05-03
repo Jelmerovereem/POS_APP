@@ -8,8 +8,10 @@
 <body>
 	<%- include("partials/nav") %>
 	<main>
+		<div class="headerProducts">
 		<h1>Products</h1>
 		<a href="javascript:void(0)" class="addProductBtn">Add product</a>
+		</div>
 		<div class="addProductModal">
 		<form action="/addproduct" method="POST" class="addProductForm modalFormContent">
 			<label for="">Product Name</label>
@@ -30,12 +32,14 @@
 			<a href="javascript:void(0)" class="cancelAddBtn">Cancel</a>
 		</form>
 		</div>
+		<div class="productsContainer">
 		<% data.products.forEach(function(data) { %>
 		<div class="productContainer">
-			<form action="/editproduct" method="POST">
-			<input class="inputProduct productName" type="text" value="<%= data.name %>" name="productName" disabled>
+			<form action="/editproduct" method="POST" class="editForm">
+			<input class="inputProduct productName" type="hidden" value="<%= data.name %>" name="productName">
+			<input class="inputProduct productName" type="text" value="<%= data.name %>" name="nameProduct" disabled>
 			<label for="">Stock available</label>
-			<input type="number" value="<%= data.stockAvailable %>" step="0.01" name="stock" disabled>
+			<input type="number" value="<%= data.stockAvailable %>" step="1" name="stock" disabled>
 			<label for="">Items sold today</label>
 			<input type="number" value="<%= data.itemsSold %>" step="0.01" name="sold" disabled>
 			<label for="">Buying price</label>
@@ -63,6 +67,7 @@
 			</div>
 		</div>
 		<%	}); %>
+	</div>
 		</main>
 		<script src="scripts/script.js"></script>
 </body>

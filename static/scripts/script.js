@@ -46,6 +46,7 @@ for (var i = 0; i < editProductBtns.length; i++) { //loop through these buttons
 			inputNodes[j].disabled = false; //remove the disabled attribute from the inputs
 			console.log(inputNodes[j]);
 			function addDisabled() {
+				document.querySelector(".editForm").reset();
 				for (var a = 0; a < inputNodes.length; a++) {
 					inputNodes[a].disabled = true;
 				}
@@ -65,3 +66,22 @@ for (var i = 0; i < editProductBtns.length; i++) { //loop through these buttons
 		}		
 	}
 }
+
+let darkModeBtn = document.querySelector(".darkModeBtn");
+
+darkModeBtn.addEventListener("click", () => {
+	if (darkModeBtn.text === "Dark Mode") {
+		darkModeBtn.text = "Light Mode"
+	} else {
+		darkModeBtn.text = "Dark Mode"
+	};
+	document.querySelector("body").classList.toggle("body-darkTheme");
+	let productContainers = document.querySelectorAll(".productContainer");
+	for (var q = 0; q < productContainers.length; q++) {
+		productContainers[q].classList.toggle("container-darkTheme");
+	}
+	let inputs = document.querySelectorAll("input");
+	for (var f = 0; f < inputs.length; f++) {
+		inputs[f].classList.toggle("inputs-darkTheme");
+	}
+})

@@ -192,21 +192,26 @@ function removeproduct(req, res) {
 }
 
 function editproduct(req, res) {
-	let selectedProduct = req.body.name;
+	let selectedProduct = req.body.productName;
 
 	if (!req.session.user) {
 		res.redirect("/login");
 	} else {
-		db.collection("POSUsers").updateOne({ $and: {username: req.session.user.username}, products: [{name: req.body.name}]}, { $set: {
-			name: req.body.productName,
-			stockAvailable: req.body.stock,
-			itemsSold: req.body.sold,
-			buyingPrice: req.body.buyingPrice,
-			sellingPrice: req.body.sellingPrice,
-			SKU: req.body.sku
-		}});
-		//console.log(db.collection("POSUsers").findOne({username: req.session.userproducts: [{name: req.body.name}]}));
-		res.redirect("/products");
+		db.collection("POSUsers").findOneAndUpdate({username: req.session.user.username}, { $set: {
+			"products.$[elem].name": req.body.nameProduct,
+			"products.$[elem].stockAvailable": req.body.stock,
+			"products.$[elem].itemsSold": req.body.sold,
+			"products.$[elem].buyingPrice": req.body.buyingPrice,
+			"products.$[elem].sellingPrice": req.body.sellingPrice,
+			"products.$[elem].SKU": req.body.sku
+		}},{ arrayFilters: [{"elem.name": req.body.productName}]}, (err) => {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log("edited product")
+			}
+		});
+		setTimeout(() => {res.redirect("/products"); console.log("redirecting...")}, 1000);
 	}
 }
 

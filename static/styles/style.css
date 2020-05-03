@@ -123,11 +123,18 @@ input, label {
 	display: block;
 }
 
+.productsContainer {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	margin-top: 50px;
+}
+
 .addProductForm input, .productContainer input {
 	margin-bottom: 20px;
 	border: none;
-	border-bottom: 1px solid #e6e6e6;
+	border-bottom: 1px solid black;
 	transition: padding 0.5s;
+	background-color: #e3e3e3;
 }
 
 .addProductForm input:focus, .productContainer input:focus {
@@ -137,7 +144,14 @@ input, label {
 }
 
 .productContainer {
+	background-color: #e3e3e3;
 	margin-bottom: 50px;
+	//border: 1px solid grey;
+	box-shadow: 0px 0px 2px black;
+	padding: 10px;
+	margin-right: 20px;
+	border-radius: 20px;
+	//width: 40%;
 }
 
 .productName {
@@ -194,5 +208,23 @@ input[disabled] {
 }
 
 .saveEditBtn {
+	background-color: #4954c4;
+	border: 1px solid #1c2260;
+	padding: 5px 15px;
+	border-radius: 10px;
+	color: white;
 	display: none;
+}
+
+.body-darkTheme {
+	background-color: #2e2e2e;
+	color: #e6e6e6;
+}
+
+.container-darkTheme {
+	background-color: #383838;
+}
+
+.inputs-darkTheme {
+	color: #e6e6e6 !important;
 }
