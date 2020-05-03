@@ -85,3 +85,7 @@ darkModeBtn.addEventListener("click", () => {
 		inputs[f].classList.toggle("inputs-darkTheme");
 	}
 })
+
+document.querySelector(".navTitle").addEventListener("click", () => {location.href = "/"; console.log("clicked")});
+
+document.querySelector(".hamburger").addEventListener("click", () => {document.querySelector(".sidebar").classList.toggle("sidebarShow");});
